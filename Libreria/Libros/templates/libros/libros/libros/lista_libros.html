@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Lista de Libros{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Lista de Libros</h1>
+
+<table class="table table-hover table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>#</th>
+            <th>Título</th>
+            <th>Autor</th>
+            <th>Fecha de Publicación</th>
+            <th>ISBN</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for libro in libros %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ libro.titulo }}</td>
+            <td>{{ libro.autor }}</td>
+            <td>{{ libro.fecha_publicacion }}</td>
+            <td>{{ libro.isbn }}</td>
+            <td>
+                <a href="{% url 'editar_libro' libro.id %}" class="btn btn-warning btn-sm">Editar</a>
+                <a href="{% url 'eliminar_libro' libro.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="6" class="text-center">No hay libros disponibles</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="{% url 'crear_libro' %}" class="btn btn-success">Añadir Nuevo Libro</a>
+{% endblock %}
